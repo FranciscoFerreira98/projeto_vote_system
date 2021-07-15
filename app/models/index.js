@@ -82,21 +82,23 @@ db.poll_vote.belongsTo(db.poll, {
 
 
 db.poll_question.hasMany(db.poll_answer);
-db.poll_answer.belongsTo(db.poll_question, {
+
+/*db.poll_answer.belongsTo(db.poll_question, {
   foreignKey: "poll_questioId",
   as: "poll_question",
-});
+});*/
 
-/*
+
 
 db.poll_question.hasMany(db.poll_vote);
+/*
 db.poll_vote.belongsTo(db.poll, {
   foreignKey: "poll_questioId",
   as: "poll_question",
 });
-
+*/
 db.poll_answer.hasMany(db.poll_vote);
-db.poll_vote.belongsTo(db.poll, {
+/*db.poll_vote.belongsTo(db.poll, {
   foreignKey: "poll_answerId",
   as: "poll_answer",
 });
