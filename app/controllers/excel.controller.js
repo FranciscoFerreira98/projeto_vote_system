@@ -28,6 +28,7 @@ const upload = async (req, res) => {
           email: row[2],
           md5: md5(Math.random()),
           num_student: row[3],
+          pollId: req.body.pollId,
         };
 
         voters.push(voter);
