@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardMesaComponent } from './dashboard-mesa/dashboard-mesa.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     LoginComponent,
     HomeComponent,
     ProfileComponent,
+    DashboardComponent,
+    DashboardMesaComponent,
   ],
   imports: [
     BrowserModule,

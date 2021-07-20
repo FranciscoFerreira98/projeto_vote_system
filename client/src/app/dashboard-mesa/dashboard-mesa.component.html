@@ -1,0 +1,60 @@
+<div class="container marginTop">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a class="hrefColor" href="#">Dashboard</a></li>
+      </ol>
+    </nav>
+    <div class="row">
+      <div class="col-lg-3 col-md-4 padLeft0">
+        <a class="hrefColor" href="admin/cursos/createCurso">
+          <div class="globalFooterCard"> Criar Poll</div>
+        </a>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-6">
+        <h1>Cursos</h1>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-md-8 col-sm-9 ">
+            <input type="text" class="form-control formsGlobal formsSearch" placeholder="Procurar pelo nome da poll"/>
+          </div>
+          <div class="col-md-4 col-sm-3 padRight0">
+            <div class="input-group-append ">
+              <button class="btn btnAcconunt btn100 " type="button">
+                Procurar
+              </button>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 globalFooterCard">
+        <table class="table">
+          <thead class="tituloTabela">
+            <tr>
+              <th scope="col" class="fontTabela">Id do curso</th>
+              <th scope="col" class="fontTabela">Nome</th>
+              <th scope="col" class="fontTabela">Editar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tabelaVertical"
+              *ngFor="let poll of polls ; let i = index"
+              [class.active]="i == currentIndex">
+              <td>{{poll.id}}</td>
+              <td>{{poll.name}}</td>
+              <td> <a href="admin/cursos/editCurso/{{poll.id}}"><button
+                    type="button" class="btn btn-warning">Editar</button></a></td>
+            </tr>
+          </tbody>
+        </table>    
+      </div>
+    </div>
+   
+  </div>
+  
