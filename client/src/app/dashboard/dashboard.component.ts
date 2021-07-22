@@ -67,21 +67,5 @@ export class DashboardComponent implements OnInit {
         });
   }
 
-  searchTitle(): void {
-    this.currentPoll = {};
-    this.currentIndex = -1;
-
-    this.pollService.findByTitle(this.title)
-      .subscribe(
-        data => {
-          this.tutorials = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
-  
 
 }

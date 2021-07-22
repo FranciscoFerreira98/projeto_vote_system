@@ -1,60 +1,178 @@
-<div class="container marginTop">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a class="hrefColor" href="#">Dashboard</a></li>
-      </ol>
-    </nav>
-    <div class="row">
-      <div class="col-lg-3 col-md-4 padLeft0">
-        <a class="hrefColor" href="admin/cursos/createCurso">
-          <div class="globalFooterCard"> Criar Poll</div>
-        </a>
+<div class="marginTop" *ngIf="showAdminBoard">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <h3 class="text-dark text-center fw-bolder pt-15">Vote.
+          <br><br>Crie agora uma votação</h3>
+        <div class="text-center pt-7">
+          <a href="mesa/create" class="btn btn-primary fw-bolder fs-6 px-7 py-3">Criar votação</a>
+        </div>
+        <br>
+        <div
+          class="flex-grow-1 bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom card-rounded-bottom h-200px"
+          style="background-image:url('../../assets/img/planning-sheets-of-paper-coffee-by-oblik-studio.svg')"></div>
+        <br>
       </div>
     </div>
-    <br>
-    <div class="row">
-      <div class="col-sm-6">
-        <h1>Cursos</h1>
-      </div>
-      <div class="col-sm-6">
-        <div class="row">
-          <div class="col-md-8 col-sm-9 ">
-            <input type="text" class="form-control formsGlobal formsSearch" placeholder="Procurar pelo nome da poll"/>
+    <div class="col-md-8">
+
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="card-title">Votações</h3>
+        </div>
+        <div class="card-body">
+          
+          <br>
+
+          <div class="table-responsive">
+            <table class="table table-borderless align-middle">
+              <thead>
+                <tr>
+                  <th class="p-0"></th>
+                  <th class="p-0"></th>
+                  <th class="p-0"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tabelaVertical" *ngFor="let poll of polls; let i = index" [class.active]="i == currentIndex">
+                  <td class="px-0">
+                    <span class="text-gray-800 fw-bolder d-block fs-6">{{ poll.name }}</span>
+                    <span class="text-muted fw-bold d-block mt-1">Nome</span>
+                  </td>
+                  <td class="px-0">
+                    <a href="#"
+                      class="text-gray-800 fw-bolder text-hover-primary fs-6">{{ poll.start_date | date: "medium" }}</a>
+                    <span class="text-muted fw-bold d-block mt-1">Data de inicio</span>
+                  </td>
+                  <td class="px-0">
+                    <a href="#"
+                      class="text-gray-800 fw-bolder text-hover-primary fs-6">{{ poll.end_date | date: "medium" }}</a>
+                    <span class="text-muted fw-bold d-block mt-1">Data final</span>
+                  </td>
+                  <td class="text-end pe-0">
+                    <a href="mesa/poll/edit/{{ poll.id }}" class="btn btn-icon btn-bg-light btn-active-primary btn-sm">
+                      <!--begin::Svg Icon | path: icons/duotone/Navigation/Arrow-right.svg-->
+                      <span class="svg-icon svg-icon-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                          height="24px" viewBox="0 0 24 24" version="1.1">
+                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                            <rect fill="#000000" opacity="0.5"
+                              transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                              x="11" y="5" width="2" height="14" rx="1"></rect>
+                            <path
+                              d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                              fill="#000000" fill-rule="nonzero"
+                              transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                            </path>
+                          </g>
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="col-md-4 col-sm-3 padRight0">
-            <div class="input-group-append ">
-              <button class="btn btnAcconunt btn100 " type="button">
-                Procurar
-              </button>
-            </div>
-  
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a class="hrefColor" href="#">Home</a></li>
+      <li class="breadcrumb-item">
+        <a class="hrefColor" href="../mesa">Dashboard</a>
+      </li>
+    </ol>
+  </nav>
+  <div class="row">
+    <div class="col-lg-3 col-md-4 padLeft0">
+      <a class="hrefColor" href="admin/cursos/createCurso">
+        <div class="globalFooterCard">Criar Poll</div>
+      </a>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Votações</h1>
+    </div>
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-md-8 col-sm-9">
+          <input
+            type="text"
+            class="form-control formsGlobal formsSearch"
+            placeholder="Procurar pelo nome da poll"
+          />
+        </div>
+        <div class="col-md-4 col-sm-3 padRight0">
+          <div class="input-group-append">
+            <button class="btn btnAcconunt btn100" type="button">
+              Procurar
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12 globalFooterCard">
-        <table class="table">
-          <thead class="tituloTabela">
-            <tr>
-              <th scope="col" class="fontTabela">Id do curso</th>
-              <th scope="col" class="fontTabela">Nome</th>
-              <th scope="col" class="fontTabela">Editar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="tabelaVertical"
-              *ngFor="let poll of polls ; let i = index"
-              [class.active]="i == currentIndex">
-              <td>{{poll.id}}</td>
-              <td>{{poll.name}}</td>
-              <td> <a href="admin/cursos/editCurso/{{poll.id}}"><button
-                    type="button" class="btn btn-warning">Editar</button></a></td>
-            </tr>
-          </tbody>
-        </table>    
-      </div>
-    </div>
-   
   </div>
-  
+  <div class="row">
+    <div class="col-12 globalFooterCard">
+      <table class="table">
+        <thead class="tituloTabela">
+          <tr>
+            <th scope="col" class="fontTabela">Id do curso</th>
+            <th scope="col" class="fontTabela">Nome</th>
+            <th scope="col" class="fontTabela">Data de Inicio</th>
+            <th scope="col" class="fontTabela">Data de Fim</th>
+            <th scope="col" class="fontTabela">Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="tabelaVertical"
+            *ngFor="let poll of polls; let i = index"
+            [class.active]="i == currentIndex"
+          >
+            <td>{{ poll.id }}</td>
+            <td>{{ poll.name }}</td>
+            <td>{{ poll.start_date | date: "medium" }}</td>
+            <td>{{ poll.end_date | date: "medium" }}</td>
+            <td>
+              <a href="admin/cursos/editCurso/{{ poll.id }}"
+                ><button type="button" class="btn btn-warning">
+                  Editar
+                </button></a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  -->
+</div>
+<div>
+  <div class="row" *ngIf="!isLoggedIn">
+    <div class="col-md-4 marTop18">
+      <h1 class="text-center error404"><b>404</b></h1>
+      <br />
+      <h1 class="text-center error404desc">
+        <b>Ops! Não existe esta página</b>
+      </h1>
+      <br />
+      <a href="#" class="text-center">
+        <button type="button" class="btn btnVoltar">Voltar ao inicio</button>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <img src="../../assets/img/hand_6.svg" class="imgLogIn" alt="" />
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>

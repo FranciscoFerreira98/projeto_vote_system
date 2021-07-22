@@ -34,8 +34,4 @@ export class PollService {
   deleteAll(): Observable<any> {
     return this.http.delete(baseUrl);
   }
-
-  findByTitle(title: any): Observable<Poll[]> {
-    return this.http.get<Poll[]>(`${baseUrl}?title=${title}`);
-  }
 }
