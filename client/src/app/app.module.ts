@@ -1,6 +1,8 @@
+import 'flatpickr/dist/flatpickr.css'; // you may need to adjust the css import depending on your build tool
 import { NgModule,LOCALE_ID} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { FlatpickrModule } from 'angularx-flatpickr';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +35,8 @@ registerLocaleData(localePt)
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FlatpickrModule.forRoot()
   ],
   providers: [authInterceptorProviders, { provide: LOCALE_ID, useValue: 'pt-PT' }],
   bootstrap: [AppComponent]
