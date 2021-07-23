@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { HttpClientModule } from '@angular/common/http';
 
+import {NgApexchartsModule} from 'ng-apexcharts'
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -35,6 +37,7 @@ registerLocaleData(localePt)
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgApexchartsModule,
     HttpClientModule,
     FlatpickrModule.forRoot()
   ],
