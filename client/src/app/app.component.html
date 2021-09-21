@@ -14,24 +14,35 @@
         <!--end::Mega Menu Toggler-->
         <!--begin::Logo-->
         <a href="#">
-          <img alt="Logo" src="../assets/img/logo.svg" class="h-30px">
+          <img alt="Logo" src="../assets/img/logo.svg" class="h-30px" />
         </a>
         <!--end::Logo-->
       </div>
       <div class="d-flex align-items-center" *ngIf="!isLoggedIn">
-         <button class="btn btn-icon login" data-bs-toggle="modal">
-          <a href="/login"  routerLink="login"> Login</a>
+        <div class="custom-control custom-switch ml-2">
+          <input (click)="changeTheme()" type="checkbox" class="form-check-input" id="customSwitch1" />
+          <label class="custom-control-label" for="customSwitch1">🌛 beta</label>
+        </div>
+        <button class="btn btn-icon login" data-bs-toggle="modal">
+          <a href="/login" routerLink="login"> Login</a>
         </button>
       </div>
-      <div class="d-flex align-items-center " *ngIf="isLoggedIn">
-        
+
+      <div class="form-check form-switch form-check-custom form-check-solid" *ngIf="isLoggedIn">
+        <div class="custom-control custom-switch ml-2">
+          <input (click)="changeTheme()" type="checkbox" class="form-check-input h-20px w-30px" id="customSwitch1" />
+          <label class="custom-control-label" for="customSwitch1">🌛 beta</label>
+        </div>
+
         <button class="btn btn-icon marNavLeft" data-bs-toggle="modal">
-          <a href="/profile" class="menu-link"  routerLink="profile">{{ username }}</a>
-       </button>
+          <a href="/profile" class="menu-link" routerLink="profile">{{
+            username
+          }}</a>
+        </button>
         <button class="btn btn-icon marNavLeft" data-bs-toggle="modal">
-          <a class="logout"  (click)="logout()">Sair</a>
-       </button>
-     </div>
+          <a class="logout" (click)="logout()">Sair</a>
+        </button>
+      </div>
     </div>
     <!--<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
@@ -79,6 +90,76 @@
 
     <div>
       <router-outlet></router-outlet>
+      <div class="py-4 d-flex flex-lg-column py-6" id="kt_footer">
+        <!--begin::Container-->
+        <div class="
+            container
+            d-flex
+            flex-column flex-md-row
+            align-items-center
+            justify-content-between
+          ">
+          <!--begin::Copyright-->
+          <div class="text-dark order-2 order-md-1">
+            <span class="text-muted fw-bold me-1">2021©</span>
+            <a href="#" target="_blank" class="text-gray-800 text-hover-primary">Francisco Ferreira</a>
+          </div>
+          <!--end::Copyright-->
+          <!--begin::Menu-->
+          <ul class="
+              menu menu-gray-600 menu-hover-primary
+              fw-bold
+              order-1
+              align-items-center
+              mb-3 mb-md-0
+            ">
+            <!--begin::Menu item-->
+            <li class="menu-item">
+              <!--begin::Menu link-->
+
+              <!--end::Menu link-->
+            </li>
+            <!--end::Menu link-->
+            <!--begin::Menu item-->
+            <li class="menu-item">
+              <!--begin::Menu link-->
+
+              <!--end::Menu link-->
+            </li>
+            <!--end::Menu link-->
+            <!--begin::Menu item-->
+            <li class="menu-item">
+              <!--begin::Menu link-->
+
+              <!--end::Menu link-->
+            </li>
+            <!--end::Menu link-->
+            <!--begin::Menu item-->
+            <li class="menu-item">
+              <!--begin::Menu link-->
+
+              <!--end::Menu link-->
+            </li>
+            <!--end::Menu link-->
+            <!--begin::Menu item-->
+            <li class="menu-item">
+              <!--begin::Menu link-->
+
+              <!--end::Menu link-->
+            </li>
+            <!--end::Menu link-->
+            <!--begin::Menu item-->
+            <li class="menu-item">
+              <!--begin::Menu link-->
+              <a href="#"> About</a>
+              <!--end::Menu link-->
+            </li>
+            <!--end::Menu link-->
+          </ul>
+          <!--end::Menu-->
+        </div>
+        <!--end::Container-->
+      </div>
     </div>
   </div>
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -112,13 +193,23 @@
                 <div class="row">
                   <div class="col-sm-4">
                     <h3 class="fw-bolder mb-5">Dashboards</h3>
-                    <ul
-                      class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
+                    <ul class="
+                        menu
+                        menu-column
+                        menu-fit
+                        menu-rounded
+                        menu-gray-600
+                        menu-hover-primary
+                        menu-active-primary
+                        fw-bold
+                        fs-6
+                        mb-10
+                      ">
                       <li class="menu-item">
                         <a class="menu-link ps-0 py-2 active" href="#">Start</a>
                       </li>
                       <li class="menu-item" *ngIf="showMesaBoard">
-                        <a class="menu-link ps-0 py-2"  routerLink="mesa" href="/mesa">Dashboard</a>
+                        <a class="menu-link ps-0 py-2" routerLink="mesa" href="/mesa">Dashboard</a>
                       </li>
                     </ul>
                   </div>
@@ -130,3 +221,4 @@
       </div>
     </div>
   </div>
+</div>

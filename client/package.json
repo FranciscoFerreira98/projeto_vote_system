@@ -22,6 +22,7 @@
     "angularx-flatpickr": "^6.6.0",
     "apexcharts": "^3.27.3",
     "bootstrap": "^5.0.0-beta3",
+    "dark-mode-switch": "^1.0.0",
     "flatpickr": "^4.6.9",
     "ng-apexcharts": "^1.5.12",
     "rxjs": "~6.6.0",

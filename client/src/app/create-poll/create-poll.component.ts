@@ -6,8 +6,6 @@ import { Portuguese } from 'flatpickr/dist/l10n/pt';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import flatpickr from 'flatpickr';
 
-
-
 export function flatpickrFactory() {
   flatpickr.localize(Portuguese);
   return flatpickr;
@@ -29,6 +27,7 @@ export class CreatePollComponent implements OnInit {
     startDate: '',
     endDate: '',
   };
+
 
   getDate = new Date();
   dd = String(this.getDate.getDate()).padStart(2, '0');
@@ -77,4 +76,5 @@ export class CreatePollComponent implements OnInit {
       }
     );
   }
+
 }

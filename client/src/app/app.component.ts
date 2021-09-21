@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   showAdminBoard = false;
   showMesaBoard = false;
   username?: string;
+  isDarkTheme = false;
 
   constructor(private tokenStorageService: TokenStorageService) {}
 
@@ -30,6 +31,17 @@ export class AppComponent implements OnInit {
     }
    
   }
+  changeTheme(): void {
+    if (this.isDarkTheme) {
+       document.getElementById('global-theme')!.setAttribute('href', 'assets/css/style.bundle.css');
+       this.isDarkTheme = false;
+       console.log(this.isDarkTheme);
+    } else {
+       document.getElementById('global-theme')!.setAttribute('href', 'assets/css/dark.bundle.css')!;
+       this.isDarkTheme = true;
+       console.log(this.isDarkTheme);
+    }
+ }
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
