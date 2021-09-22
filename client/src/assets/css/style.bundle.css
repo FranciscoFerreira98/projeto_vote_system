@@ -86,6 +86,13 @@ body.dark-mode {
   -webkit-tap-highlight-color: transparent
 }
 
+h1.dark-mode{
+  color:var(--bs-dark);
+}
+h1.light-mode{
+  color:var(--bs-body-color);
+}
+
 body:not(.dark-mode-preloading) {
   transition: all 0.3s linear;
 }
