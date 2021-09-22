@@ -1,6 +1,8 @@
 import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
+import { DarkModeService } from 'angular-dark-mode';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +16,9 @@ export class AppComponent implements OnInit {
   showMesaBoard = false;
   username?: string;
   isDarkTheme = false;
+  darkMode$: Observable<boolean> = this.darkModeService.darkMode$;
 
-  constructor(private tokenStorageService: TokenStorageService) {}
+  constructor(private tokenStorageService: TokenStorageService, private darkModeService: DarkModeService) {}
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -31,19 +34,12 @@ export class AppComponent implements OnInit {
     }
    
   }
-  changeTheme(): void {
-    if (this.isDarkTheme) {
-       document.getElementById('global-theme')!.setAttribute('href', 'assets/css/style.bundle.css');
-       this.isDarkTheme = false;
-       console.log(this.isDarkTheme);
-    } else {
-       document.getElementById('global-theme')!.setAttribute('href', 'assets/css/dark.bundle.css')!;
-       this.isDarkTheme = true;
-       console.log(this.isDarkTheme);
-    }
- }
+  
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
+  }
+  onToggle(): void {
+    this.darkModeService.toggle();
   }
 }

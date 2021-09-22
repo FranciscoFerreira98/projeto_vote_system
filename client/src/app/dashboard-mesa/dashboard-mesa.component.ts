@@ -4,6 +4,9 @@ import { Poll } from 'src/app/models/poll.model';
 import { PollService } from 'src/app/_services/poll.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 
+declare let KTStepper : any;
+
+
 @Component({
   selector: 'app-dashboard-mesa',
   templateUrl: './dashboard-mesa.component.html',
@@ -19,6 +22,8 @@ export class DashboardMesaComponent implements OnInit {
   isLoggedIn = false;
   showAdminBoard = false;
   showMesaBoard = false;
+  element:any;
+  stepper:any;
 
   constructor(
     private userService: UserService,
@@ -28,11 +33,12 @@ export class DashboardMesaComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-
+    this.element = document.querySelector("#kt_stepper_example_vertical");
+    this.stepper = new KTStepper(this.element);
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
-
+  
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showMesaBoard = this.roles.includes('ROLE_MESA');
 
@@ -81,5 +87,13 @@ export class DashboardMesaComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  goBack(){
+    this.stepper.goPrevious(); // go next step
+  }
+
+  goNext(){
+    this.stepper.goNext(); // go next step
+
   }
 }

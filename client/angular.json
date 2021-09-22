@@ -30,10 +30,12 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/scripts.bundle.js",
+              "node_modules/jquery/dist/jquery.min.js",
               "node_modules/apexcharts/dist/apexcharts.min.js",
               "node_modules/dark-mode-switch/dark-mode-switch.min.js",
-              "src/assets/plugins/custom/typedjs/typedjs.bundle.js"
+              "src/assets/plugins/custom/typedjs/typedjs.bundle.js",
+              "./node_modules/angular-dark-mode/angular-dark-mode.js",
+              "src/assets/js/scripts.bundle.js"
             ]
           },
           "configurations": {

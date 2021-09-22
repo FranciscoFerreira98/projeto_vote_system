@@ -14,26 +14,19 @@
         <!--end::Mega Menu Toggler-->
         <!--begin::Logo-->
         <a href="#">
-          <img alt="Logo" src="../assets/img/logo.svg" class="h-30px" />
+          <img alt="Logo" src="../assets/img/logo.svg" class="h-30px logo" />
         </a>
         <!--end::Logo-->
       </div>
       <div class="d-flex align-items-center" *ngIf="!isLoggedIn">
-        <div class="custom-control custom-switch ml-2">
-          <input (click)="changeTheme()" type="checkbox" class="form-check-input" id="customSwitch1" />
-          <label class="custom-control-label" for="customSwitch1">🌛 beta</label>
-        </div>
+
         <button class="btn btn-icon login" data-bs-toggle="modal">
           <a href="/login" routerLink="login"> Login</a>
         </button>
       </div>
 
       <div class="form-check form-switch form-check-custom form-check-solid" *ngIf="isLoggedIn">
-        <div class="custom-control custom-switch ml-2">
-          <input (click)="changeTheme()" type="checkbox" class="form-check-input h-20px w-30px" id="customSwitch1" />
-          <label class="custom-control-label" for="customSwitch1">🌛 beta</label>
-        </div>
-
+       
         <button class="btn btn-icon marNavLeft" data-bs-toggle="modal">
           <a href="/profile" class="menu-link" routerLink="profile">{{
             username
@@ -90,6 +83,7 @@
 
     <div>
       <router-outlet></router-outlet>
+      <footer>
       <div class="py-4 d-flex flex-lg-column py-6" id="kt_footer">
         <!--begin::Container-->
         <div class="
@@ -137,21 +131,25 @@
             <!--begin::Menu item-->
             <li class="menu-item">
               <!--begin::Menu link-->
-
+              <div class="menu-link px-2  form-check form-switch form-check-custom form-check-solid pulse pulse-primary">
+                <div class=" custom-control custom-switch ml-2 ">
+                  <input type="checkbox" class="form-check-input h-20px w-30px" [checked]="darkMode$ | async" (change)="onToggle()" />
+                  <label class="custom-control-label " for="customSwitch1">🌛 beta* </label>
+                  
+                </div>
+              </div>
               <!--end::Menu link-->
+            </li>
+            <!--end::Menu link-->
+            <!--begin::Menu item-->
+            <li class="menu-item">
+              <a target="_blank" class="menu-link px-2">Sobre</a>
             </li>
             <!--end::Menu link-->
             <!--begin::Menu item-->
             <li class="menu-item">
               <!--begin::Menu link-->
 
-              <!--end::Menu link-->
-            </li>
-            <!--end::Menu link-->
-            <!--begin::Menu item-->
-            <li class="menu-item">
-              <!--begin::Menu link-->
-              <a href="#"> About</a>
               <!--end::Menu link-->
             </li>
             <!--end::Menu link-->
@@ -160,7 +158,9 @@
         </div>
         <!--end::Container-->
       </div>
+    </footer>
     </div>
+    
   </div>
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
