@@ -3,6 +3,15 @@ import { UserService } from '../_services/user.service';
 import { Poll } from 'src/app/models/poll.model';
 import { PollService } from 'src/app/_services/poll.service';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { Portuguese } from 'flatpickr/dist/l10n/pt';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import flatpickr from 'flatpickr';
+
+export function flatpickrFactory() {
+  flatpickr.localize(Portuguese);
+  return flatpickr;
+}
+
 
 declare let KTStepper : any;
 
@@ -25,6 +34,26 @@ export class DashboardMesaComponent implements OnInit {
   element:any;
   stepper:any;
 
+  message?: string;
+  isSuccessful = false;
+  submitted = false;
+  isError = false;
+  poll = {
+    nome: '',
+    date: '',
+  };
+  submitBtn : any;
+
+  getDate = new Date();
+  dd = String(this.getDate.getDate()).padStart(2, '0');
+  mm = String(this.getDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+  yyyy = this.getDate.getFullYear();
+
+  today = this.yyyy + '-' + this.mm + '-' + this.dd;
+
+  basicDemoValue = new Date();
+  startDate = new Date();
+
   constructor(
     private userService: UserService,
     private pollService: PollService,
@@ -32,8 +61,10 @@ export class DashboardMesaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    flatpickrFactory();
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     this.element = document.querySelector("#kt_stepper_example_vertical");
+    this.submitBtn = document.querySelector('[data-kt-stepper-action="submit"]'), 
     this.stepper = new KTStepper(this.element);
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
@@ -89,11 +120,42 @@ export class DashboardMesaComponent implements OnInit {
     );
   }
   goBack(){
-    this.stepper.goPrevious(); // go next step
+    
+    this.stepper.goPrevious(); // go next step 
+    this.submitBtn.classList.remove("d-inline-block");
   }
 
   goNext(){
+    if(this.stepper.getCurrentStepIndex() == 4){
+      this.submitBtn.classList.add("d-inline-block");
+    }
+    if(this.stepper.getCurrentStepIndex() != 4){
+      this.submitBtn.classList.remove("d-inline-block");
+    }
+
     this.stepper.goNext(); // go next step
 
+  }
+
+
+  createPoll() {
+    const data = {
+      name: this.poll.nome,
+      start_date: this.poll.date,
+    };
+
+    console.log(data);
+    /*this.pollService.create(data).subscribe(
+      (response) => {
+        console.log(response);
+        this.isSuccessful = true;
+        this.isError = false;
+      },
+      (error) => {
+        this.isError = true;
+        this.message = error.statusText;
+        console.log(error);
+      }
+    );*/
   }
 }
