@@ -1,5 +1,5 @@
 const db = require("../models");
-const Voter = db.voter;
+const Voter = db.poll_answer;
 
 const readXlsxFile = require("read-excel-file/node");
 var md5 = require('md5');

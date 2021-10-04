@@ -20,6 +20,7 @@ import { registerLocaleData } from '@angular/common';
 
 import localePt from '@angular/common/locales/pt';
 import { CreatePollComponent } from './create-poll/create-poll.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 registerLocaleData(localePt)
 
 
@@ -38,6 +39,7 @@ registerLocaleData(localePt)
     AppRoutingModule,
     FormsModule,
     NgApexchartsModule,
+    NgxPaginationModule,
     HttpClientModule,
     FlatpickrModule.forRoot()
   ],

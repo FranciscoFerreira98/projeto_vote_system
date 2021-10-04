@@ -86,11 +86,12 @@ body.dark-mode {
   -webkit-tap-highlight-color: transparent
 }
 
-h1.dark-mode{
-  color:var(--bs-dark);
+h1.dark-mode {
+  color: var(--bs-dark);
 }
-h1.light-mode{
-  color:var(--bs-body-color);
+
+h1.light-mode {
+  color: var(--bs-body-color);
 }
 
 body:not(.dark-mode-preloading) {
@@ -54959,4 +54960,45 @@ body {
 
 .docs-aside-menu .menu-item .menu-icon {
   justify-content: flex-start
+}
+
+.submitBtn {
+  display: none;
+}
+
+.ngx-pagination {
+  margin-right: .5rem !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: .65rem !important; 
+  height: 2.5rem !important;
+  min-width: 2.5rem !important;
+  font-weight: 500 !important;
+  font-size: 1.075rem !important;
+}
+
+.ngx-pagination .current,
+.btn-info {
+  z-index: 3;
+  color: #fff;
+  background-color: #20d489;
+  border-color: transparent
+  border-radius: .65rem !important; 
+}
+
+.ngx-pagination .current:hover {
+  z-index: 3 !important;
+  color: #fff !important;
+  background-color: #20d489 !important;
+  border-color: transparent;
+  border-radius: .65rem !important; 
+}
+
+.ngx-pagination .current {
+  z-index: 3;
+  color: #fff !important;
+  background-color: #20d489 !important;
+  border-color: transparent !important;
+  border-radius: .65rem !important; 
 }

@@ -37,7 +37,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="tabelaVertical" *ngFor="let poll of polls; let i = index" [class.active]="i == currentIndex">
+                <tr class="tabelaVertical" *ngFor="let poll of polls | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };; let i = index" [class.active]="i == currentIndex">
                   <td class="px-0">
                     <span class="text-gray-800 fw-bolder d-block fs-6">{{ poll.name }}</span>
                     <span class="text-muted fw-bold d-block mt-1">Nome</span>
@@ -77,6 +81,8 @@
                 </tr>
               </tbody>
             </table>
+            <pagination-controls class="pagination" previousLabel="Prev" nextLabel="Next" [responsive]="true"
+              (pageChange)="handlePageChange($event)"></pagination-controls>
           </div>
         </div>
 
@@ -182,7 +188,7 @@
 
 <div class="modal fade" id="kt_modal_create_app" tabindex="-1" style="display: none;" aria-hidden="true">
   <!--begin::Modal dialog-->
-  <div class="modal-dialog modal-dialog-centered mw-900px">
+  <div class="modal-dialog modal-dialog-centered mw-1000px">
     <!--begin::Modal content-->
     <div class="modal-content">
       <!--begin::Modal header-->
@@ -504,15 +510,19 @@
                       <!--end:Label-->
                       <!--begin:Input-->
                       <span class="form-check form-check-custom form-check-solid">
-                        <input class="form-control form-control-solid" type="text" mwlFlatpickr [altInput]="true" 
-                          [convertModelValue]="true" mode="range" [time24hr]="true" [(ngModel)]="poll.date" [dateFormat]="'Y-m-d:H:i'" name="rangeDates" [locale]="'Portuguese'" [minDate]="today" [enableTime]="true" >
-                          
+                        <input class="form-control form-control-solid" type="text" mwlFlatpickr [altInput]="true"
+                          [convertModelValue]="true" mode="range" [time24hr]="true" [(ngModel)]="date"
+                          [dateFormat]="'Y-m-d:H:i'" name="rangeDates" [locale]="'Portuguese'" [minDate]="today"
+                          [enableTime]="true">
+
                       </span>
                       <!--end:Input-->
                     </label>
                     <div class="fv-plugins-message-container invalid-feedback"></div>
                   </div>
-                  NgModel value: {{ poll.date | json }}
+                  <div>
+                    <button class="btn btn-primary" (click)="createPoll()">Criar Votação</button>
+                  </div>
                   <!--end::Input group-->
                 </div>
               </div>
@@ -526,9 +536,33 @@
                     <label class="required fs-5 fw-bold mb-2">Upload Ficheiro</label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="file" class="form-control form-control-lg form-control-solid" />
+                    <input type="file" (change)="selectFile($event)"
+                      class="form-control form-control-lg form-control-solid" />
                     <!--end::Input-->
                     <div class="fv-plugins-message-container invalid-feedback"></div>
+                  </div>
+                  <div class="fv-row mb-10 fv-plugins-icon-container">
+                    <!--begin::Label-->
+
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+                      Upload
+                    </button>
+                    <!--end::Input-->
+
+                    <div class="fv-row mb-10 fv-plugins-icon-container">
+                      <!--begin::Label-->
+
+                      <div *ngIf="currentFile" class="progress my-3">
+                        <div class="progress-bar progress-bar-info" role="progressbar"
+                          attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"
+                          [ngStyle]="{ width: progress + '%' }">
+                          {{ progress }}%
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="message" class="alert alert-primary" role="alert">{{ message }}</div>
                   </div>
                   <!--end::Input group-->
                   <!--begin::Input group-->
@@ -548,10 +582,35 @@
                     <label class="required fs-5 fw-bold mb-2">Upload Ficheiro</label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="file" class="form-control form-control-lg form-control-solid" />
+                    <input type="file" (change)="selectFileRepresent($event)"
+                      class="form-control form-control-lg form-control-solid" />
                     <!--end::Input-->
                     <div class="fv-plugins-message-container invalid-feedback"></div>
                   </div>
+                  <div class="fv-row mb-10 fv-plugins-icon-container">
+                    <!--begin::Label-->
+
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <button class="btn btn-success" [disabled]="!selectedFilesRepresents" (click)="uploadRepresent()">
+                      Upload
+                    </button>
+                    <!--end::Input-->
+
+                    <div class="fv-row mb-10 fv-plugins-icon-container">
+                      <!--begin::Label-->
+
+                      <div *ngIf="currentFileRepresent" class="progress my-3">
+                        <div class="progress-bar progress-bar-info" role="progressbar"
+                          attr.aria-valuenow="{{ progressRepresent }}" aria-valuemin="0" aria-valuemax="100"
+                          [ngStyle]="{ width: progressRepresent + '%' }">
+                          {{ progressRepresent }}%
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="messageRepresent" class="alert alert-primary" role="alert">{{ messageRepresent }}</div>
+                  </div>
+
                   <!--end::Input group-->
                   <!--begin::Input group-->
 
@@ -604,7 +663,8 @@
                 <!--end::Wrapper-->
                 <!--begin::Wrapper-->
                 <div>
-                  <button type="button" class="btn btn-lg btn-primary" (click)="createPoll()" data-kt-stepper-action="submit">
+                  <button type="button" class="btn btn-lg btn-primary" (click)="submitVoters()"
+                    data-kt-stepper-action="submit">
                     <span class="indicator-label">Submit
                       <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                       <span class="svg-icon svg-icon-3 ms-2 me-0">
