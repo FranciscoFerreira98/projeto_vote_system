@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardMesaComponent } from './dashboard-mesa/dashboard-mesa.component';
 import { CreatePollComponent } from './create-poll/create-poll.component';
+import { EditPollComponent } from './edit-poll/edit-poll.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'mesa', component: DashboardMesaComponent },
   { path: 'mesa/create', component: CreatePollComponent },
+  { path: 'mesa/poll/edit/:id', component: EditPollComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

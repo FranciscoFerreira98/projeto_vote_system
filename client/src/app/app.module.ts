@@ -21,6 +21,7 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { CreatePollComponent } from './create-poll/create-poll.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { EditPollComponent } from './edit-poll/edit-poll.component';
 registerLocaleData(localePt)
 
 
@@ -33,6 +34,7 @@ registerLocaleData(localePt)
     DashboardComponent,
     DashboardMesaComponent,
     CreatePollComponent,
+    EditPollComponent,
   ],
   imports: [
     BrowserModule,
