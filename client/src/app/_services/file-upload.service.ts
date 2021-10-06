@@ -24,6 +24,18 @@ export class FileUploadService {
   }
 
   getFiles(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/excel/voters`);
+    return this.http.get(`${this.baseUrl}/api/excel/`);
+  }
+
+  findByName(name: any,pollId:any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/excel/?name=${name}&pollId=${pollId}`);
+  }
+
+  get(id: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/excel/${id}`);
+  }
+
+  getByMd5(id: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/excel/md5/${id}`);
   }
 }

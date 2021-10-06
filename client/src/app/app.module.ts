@@ -24,6 +24,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { EditPollComponent } from './edit-poll/edit-poll.component';
 registerLocaleData(localePt)
 
+import { DataTablesModule } from "angular-datatables";
+import { VoteComponent } from './vote/vote.component';
+
 
 @NgModule({
   declarations: [
@@ -35,11 +38,14 @@ registerLocaleData(localePt)
     DashboardMesaComponent,
     CreatePollComponent,
     EditPollComponent,
+    VoteComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    DataTablesModule,
     NgApexchartsModule,
     NgxPaginationModule,
     HttpClientModule,

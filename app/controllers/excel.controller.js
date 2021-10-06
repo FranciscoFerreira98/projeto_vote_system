@@ -1,9 +1,11 @@
 const db = require("../models");
 const Voter = db.voter;
-
+const { Op } = require("sequelize");
 const readXlsxFile = require("read-excel-file/node");
 var md5 = require('md5');
-const { DateTime } = require("mssql");
+const {
+  DateTime
+} = require("mssql");
 
 
 
@@ -23,7 +25,7 @@ const upload = async (req, res) => {
       let voters = [];
 
       rows.forEach((row) => {
-        let voter = { 
+        let voter = {
           name: row[0],
           email: row[1],
           md5: md5(Math.random()),
@@ -34,7 +36,7 @@ const upload = async (req, res) => {
         voters.push(voter);
       });
 
-      
+
       Voter.bulkCreate(voters)
         .then(() => {
           res.status(200).send({
@@ -63,8 +65,69 @@ const getVoters = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
+        message: err.message || "Some error occurred while retrieving voters.",
+      });
+    });
+};
+
+
+const getVotersById = (req, res) => {
+  const id = req.params.id;
+
+  Voter.findAll({
+      where: {
+        pollId: id
+      }
+    })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Voters with id=" + id
+      });
+    });
+};
+
+const getVotersByMd5 = (req, res) => {
+  const id = req.params.md5;
+
+console.log(id);
+  Voter.findAll({
+      where: {
+        md5: id
+      }
+    })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Voters with id=" + id
+      });
+    });
+};
+
+const getVotersByName = (req, res) => {
+  const name = req.query.name;
+  const pollid = req.query.pollId;
+  var condition = name ? 
+  {
+    pollId: pollid, 
+    name: { [Op.like]: `%${name}%` }
+  } : 
+  {
+    pollId: pollid, 
+  };
+
+  Voter.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving voters.",
+          err.message || "Some error occurred while retrieving tutorials."
       });
     });
 };
@@ -72,4 +135,7 @@ const getVoters = (req, res) => {
 module.exports = {
   upload,
   getVoters,
+  getVotersById,
+  getVotersByName,
+  getVotersByMd5
 };
