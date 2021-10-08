@@ -26,4 +26,8 @@ export class FileUploadRepresentativeService {
   getFiles(): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/representatives/voters`);
   }
+  
+  get(id: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/representatives/${id}`);
+  }
 }

@@ -37,3 +37,13 @@
 .paddingTopContent{
   padding-top: 30px;
 }
+
+.width100{
+  width: 100%;
+}
+footer {
+  clear: both;
+  position: relative;
+  height: 200px;
+  margin-top: -200px;
+}

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PollService } from 'src/app/_services/poll.service';
-import { FileUploadService } from 'src/app/_services/file-upload.service';
+import { FileUploadService } from '../_services/file-upload.service';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { FileUploadRepresentativeService } from '../_services/file-upload-representatives.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -16,10 +17,13 @@ export class VoteComponent implements OnInit {
   //variaveis
   currentPoll : any;
   currentVoter : any;
-
+  allRepresentatives : any;
+  showVote = false;
+  
   constructor(
     private pollService: PollService,
     private votersService: FileUploadService,
+    private representativeService: FileUploadRepresentativeService,
     private tokenStorageService: TokenStorageService,
     private route: ActivatedRoute
   ) { }
@@ -33,7 +37,7 @@ export class VoteComponent implements OnInit {
     this.pollService.get(id).subscribe(
       (data) => {
         this.currentPoll = data;
-        console.log(data);
+       this.getRepresentives(data.id);
       },
       (error) => {
         console.log(error);
@@ -48,12 +52,25 @@ export class VoteComponent implements OnInit {
       (data) => {
         this.currentVoter = data;
         this.getPoll(data[0].pollId);
+        this.showVote = true;
+      },
+      (error) => {
+        this.showVote = false;
+        console.log(error);
+      }
+    );
+  }
+
+  getRepresentives(id: any): void {
+    this.representativeService.get(id).subscribe(
+      (data) => {
+        this.allRepresentatives = data;
+        console.log(data);
       },
       (error) => {
         console.log(error);
       }
     );
   }
-
 
 }

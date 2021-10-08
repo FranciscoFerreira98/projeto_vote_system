@@ -1,5 +1,5 @@
 const db = require("../models");
-const Voter = db.poll_answer;
+const Representative = db.poll_answer;
 
 const readXlsxFile = require("read-excel-file/node");
 var md5 = require('md5');
@@ -35,7 +35,7 @@ const upload = async (req, res) => {
       });
 
       
-      Voter.bulkCreate(voters)
+      Representative.bulkCreate(voters)
         .then(() => {
           res.status(200).send({
             message: "Uploaded the file successfully: " + req.file.originalname,
@@ -56,8 +56,8 @@ const upload = async (req, res) => {
   }
 };
 
-const getVoters = (req, res) => {
-  Voter.findAll()
+const getRepresentatives = (req, res) => {
+  Representative.findAll()
     .then((data) => {
       res.send(data);
     })
@@ -69,7 +69,27 @@ const getVoters = (req, res) => {
     });
 };
 
+
+const getRepresentativeById = (req, res) => {
+  const id = req.params.id;
+
+  Representative.findAll({
+      where: {
+        pollId: id
+      }
+    })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Voters with id=" + id
+      });
+    });
+};
+
 module.exports = {
   upload,
-  getVoters,
+  getRepresentatives,
+  getRepresentativeById,
 };

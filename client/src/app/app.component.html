@@ -83,82 +83,7 @@
 
     <div>
       <router-outlet></router-outlet>
-      <footer>
-      <div class="py-4 d-flex flex-lg-column py-6" id="kt_footer">
-        <!--begin::Container-->
-        <div class="
-            container
-            d-flex
-            flex-column flex-md-row
-            align-items-center
-            justify-content-between
-          ">
-          <!--begin::Copyright-->
-          <div class="text-dark order-2 order-md-1">
-            <span class="text-muted fw-bold me-1">2021©</span>
-            <a href="#" target="_blank" class="text-gray-800 text-hover-primary">Francisco Ferreira</a>
-          </div>
-          <!--end::Copyright-->
-          <!--begin::Menu-->
-          <ul class="
-              menu menu-gray-600 menu-hover-primary
-              fw-bold
-              order-1
-              align-items-center
-              mb-3 mb-md-0
-            ">
-            <!--begin::Menu item-->
-            <li class="menu-item">
-              <!--begin::Menu link-->
-
-              <!--end::Menu link-->
-            </li>
-            <!--end::Menu link-->
-            <!--begin::Menu item-->
-            <li class="menu-item">
-              <!--begin::Menu link-->
-
-              <!--end::Menu link-->
-            </li>
-            <!--end::Menu link-->
-            <!--begin::Menu item-->
-            <li class="menu-item">
-              <!--begin::Menu link-->
-
-              <!--end::Menu link-->
-            </li>
-            <!--end::Menu link-->
-            <!--begin::Menu item-->
-            <li class="menu-item">
-              <!--begin::Menu link-->
-              <div class="menu-link px-2  form-check form-switch form-check-custom form-check-solid pulse pulse-primary">
-                <div class=" custom-control custom-switch ml-2 ">
-                  <input type="checkbox" class="form-check-input h-20px w-30px" [checked]="darkMode$ | async" (change)="onToggle()" />
-                  <label class="custom-control-label " for="customSwitch1">🌛 beta* </label>
-                  
-                </div>
-              </div>
-              <!--end::Menu link-->
-            </li>
-            <!--end::Menu link-->
-            <!--begin::Menu item-->
-            <li class="menu-item">
-              <a target="_blank" class="menu-link px-2">Sobre</a>
-            </li>
-            <!--end::Menu link-->
-            <!--begin::Menu item-->
-            <li class="menu-item">
-              <!--begin::Menu link-->
-
-              <!--end::Menu link-->
-            </li>
-            <!--end::Menu link-->
-          </ul>
-          <!--end::Menu-->
-        </div>
-        <!--end::Container-->
-      </div>
-    </footer>
+      
     </div>
     
   </div>
@@ -221,4 +146,35 @@
       </div>
     </div>
   </div>
+</div>
+<div class="footer py-4 d-flex flex-lg-column " id="kt_footer">
+  <!--begin::Container-->
+  <div class="container-xxl d-flex flex-column flex-md-row flex-stack">
+    <!--begin::Copyright-->
+    <div class="text-dark order-2 order-md-1">
+      <span class="text-muted fw-bold me-2">2021©</span>
+      <a href="/home" target="_blank" class="text-gray-800 text-hover-primary">Francisco Ferreira</a>
+    </div>
+    <!--end::Copyright-->
+    <!--begin::Menu-->
+    <ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
+      <li class="menu-item">
+        <a href="/about" target="_blank" class="menu-link px-2">Sobre</a>
+      </li>
+      <li class="menu-item">
+        <a href="https://ipca.pt" target="_blank" class="menu-link px-2">IPCA</a>
+      </li>
+      <li class="menu-item">
+        <div class="menu-link px-2  form-check form-switch form-check-custom form-check-solid pulse pulse-primary">
+          <div class=" custom-control custom-switch ml-2 ">
+            <input type="checkbox" class="form-check-input h-20px w-30px" [checked]="darkMode$ | async" (change)="onToggle()" />
+            <label class="custom-control-label " for="customSwitch1">🌛 beta* </label>
+            
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!--end::Menu-->
+  </div>
+  <!--end::Container-->
 </div>

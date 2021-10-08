@@ -38,4 +38,6 @@ export class FileUploadService {
   getByMd5(id: any): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/excel/md5/${id}`);
   }
+
+  
 }
