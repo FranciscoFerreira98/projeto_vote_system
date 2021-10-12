@@ -31,8 +31,12 @@ export class FileUploadService {
     return this.http.get(`${this.baseUrl}/api/excel/?name=${name}&pollId=${pollId}`);
   }
 
-  get(id: any): Observable<any> {
+  get(id: any ): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/excel/${id}`);
+  }
+
+  update(id: any ,data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/api/excel/${id}`, data);
   }
 
   getByMd5(id: any): Observable<any> {

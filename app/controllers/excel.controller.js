@@ -31,6 +31,7 @@ const upload = async (req, res) => {
           md5: md5(Math.random()),
           num_student: row[2],
           pollId: req.body.pollId,
+          voted: false,
         };
         console.log(voter.name)
         voters.push(voter);
@@ -132,10 +133,35 @@ const getVotersByName = (req, res) => {
     });
 };
 
+const updateVoter = (req, res) => {
+  const id = req.params.id;
+
+  Voter.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Voter was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update Voter with id=${id}. Maybe Voter was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Voter with id=" + id
+      });
+    });
+};
+
 module.exports = {
   upload,
   getVoters,
   getVotersById,
   getVotersByName,
-  getVotersByMd5
+  getVotersByMd5,
+  updateVoter
 };
