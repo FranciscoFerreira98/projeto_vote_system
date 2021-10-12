@@ -89,7 +89,7 @@ export class VoteComponent implements OnInit {
           : 'This Voter was updated successfully!';
       },
       (error) => {
-        console.log(error);
+        console.log(error); 
       }
     );
   }
