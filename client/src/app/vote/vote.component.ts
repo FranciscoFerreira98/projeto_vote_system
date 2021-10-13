@@ -6,6 +6,7 @@ import { VoteService } from '../_services/vote.service';
 import { FileUploadRepresentativeService } from '../_services/file-upload-representatives.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-vote',
   templateUrl: './vote.component.html',
@@ -22,6 +23,17 @@ export class VoteComponent implements OnInit {
   };
   message = '';
 
+  submitedVote = false;
+
+  radioValue : any;
+
+  element :any;
+  button:any;
+
+  selectedItemsList = [];
+  checkedIDs = [];
+
+
   constructor(
     private pollService: PollService,
     private votersService: FileUploadService,
@@ -33,7 +45,10 @@ export class VoteComponent implements OnInit {
 
   ngOnInit(): void {
     this.getVoters(this.route.snapshot.paramMap.get('id'));
+    
   }
+
+
 
   getPoll(id: any): void {
     this.pollService.get(id).subscribe(
@@ -84,9 +99,6 @@ export class VoteComponent implements OnInit {
     this.votersService.update(this.currentVoter[0].id, data).subscribe(
       (response) => {
         console.log(response);
-        this.message = response.message
-          ? response.message
-          : 'This Voter was updated successfully!';
       },
       (error) => {
         console.log(error); 
@@ -94,19 +106,24 @@ export class VoteComponent implements OnInit {
     );
   }
 
+  checkCheckBoxvalue(event){
+    console.log(event.checked)
+  }
+  
   onSubmit() {
     const data = {
       pollId: this.currentVoter[0].pollId,
-      pollQuestionId: '2',
-      pollAnswerId: this.checkBox.getCheckedVote,
+      pollQuestionId: '1',
+      pollAnswerId: this.radioValue,
     };
-    console.log(this.checkBox.getCheckedVote);
 
-    /*this.voteService.create(data).subscribe(
+    console.log(data);
+    /*
+    this.voteService.create(data).subscribe(
       (response) => {
         this.updateVoter();
-        console.log(data);
-        console.log(response);
+        this.submitedVote = true;
+        this.showVote = false;
       },
       (error) => {
         console.log(error);

@@ -26,6 +26,7 @@ registerLocaleData(localePt)
 
 import { DataTablesModule } from "angular-datatables";
 import { VoteComponent } from './vote/vote.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 @NgModule({
@@ -45,6 +46,8 @@ import { VoteComponent } from './vote/vote.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    SweetAlert2Module,
+    SweetAlert2Module.forRoot(),
     DataTablesModule,
     NgApexchartsModule,
     NgxPaginationModule,
