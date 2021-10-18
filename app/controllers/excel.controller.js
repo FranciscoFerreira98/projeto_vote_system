@@ -157,11 +157,36 @@ const updateVoter = (req, res) => {
     });
 };
 
+const deleteVoter = (req, res) => {
+  const id = req.params.id;
+  Voter.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Voter was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Voter with id=${id}. Maybe Voter was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Voter with id=" + id
+      });
+    });
+};
+
+
 module.exports = {
   upload,
   getVoters,
   getVotersById,
   getVotersByName,
   getVotersByMd5,
+  deleteVoter,
   updateVoter
 };

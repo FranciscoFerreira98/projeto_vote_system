@@ -4,6 +4,8 @@ import { PollService } from 'src/app/_services/poll.service';
 import { FileUploadService } from 'src/app/_services/file-upload.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FileUploadRepresentativeService } from '../_services/file-upload-representatives.service';
+
 
 @Component({
   selector: 'app-edit-poll',
@@ -15,43 +17,35 @@ export class EditPollComponent implements OnInit {
   voters: any;
   isUpdateFailed = false;
   isSuccessful = false;
-  name: any;
+  name = '';
+  nameRepresent = '';
+  allRepresentatives:any;
+  startDate:any;
+  endDate:any;
+  today = new Date();
 
-  currentIndex = -1;
-  
-  page = 1;
-  count = 0;
-  pageSize = 5;
-  pageSizes = [3, 6, 9];
+  isUpdated = false;
 
-  title = '';
-
+  p: number = 1;
+  p1: number = 1;
+ 
   constructor(
     private pollService: PollService,
     private votersService: FileUploadService,
     private tokenStorageService: TokenStorageService,
+    private representativeService: FileUploadRepresentativeService,
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    this.retrievePolls();
+  ngOnInit(): void {   
     this.getPoll(this.route.snapshot.paramMap.get('id'));
+    this.retrievePolls();
+    this.getAllRepresents();
   }
 
-  handlePageChange(event: number): void {
-    this.page = event;
-    this.retrievePolls();
-  }
 
-  handlePageSizeChange(event: any): void {
-    this.pageSize = event.target.value;
-    this.page = 1;
-    this.retrievePolls();
-  }
 
   retrievePolls(): void {
-    const params = this.getRequestParams(this.title, this.page, this.pageSize);
-
     this.votersService.get(this.route.snapshot.paramMap.get('id')).subscribe(
       (data) => {
         this.voters = data;
@@ -62,22 +56,15 @@ export class EditPollComponent implements OnInit {
     );
   }
 
-  getRequestParams(searchTitle: string, page: number, pageSize: number): any {
-    let params: any = {};
-
-    if (searchTitle) {
-      params[`title`] = searchTitle;
-    }
-
-    if (page) {
-      params[`page`] = page - 1;
-    }
-
-    if (pageSize) {
-      params[`size`] = pageSize;
-    }
-
-    return params;
+  getAllRepresents(): void {
+    this.representativeService.get(this.route.snapshot.paramMap.get('id')).subscribe(
+      (data) => {
+        this.allRepresentatives = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
 
@@ -85,6 +72,16 @@ export class EditPollComponent implements OnInit {
     this.pollService.get(id).subscribe(
       (data) => {
         this.currentPoll = data;
+        console.log(this.currentPoll);
+        this.startDate = Date.parse(this.currentPoll.start_date)
+        this.endDate = Date.parse(this.currentPoll.end_date)
+        
+        if(this.today.getTime() <= this.startDate && this.today.getTime() >= this.endDate){
+          this.isUpdated = false;
+        }
+        else{
+          this.isUpdated = true;
+        }
       },
       (error) => {
         console.log(error);
@@ -117,8 +114,32 @@ export class EditPollComponent implements OnInit {
     );
   }
 
+  deleteVoter(id){
+    this.votersService.delete(id).subscribe(
+      (response) => {
+        this.searchByName();
+      },
+      (error) => {
+        console.log(error);
+
+      }
+    );
+  }
+
+  deleteRepresent(id){
+    this.representativeService.delete(id).subscribe(
+      (response) => {
+        this.searchByNameRepresents();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   onEnter() {
     this.searchByName();
+    this.searchByNameRepresents();
   }
 
   searchByName(): void {
@@ -134,7 +155,31 @@ export class EditPollComponent implements OnInit {
       );
   }
 
- 
+  searchByNameRepresents(): void {
+    this.representativeService
+      .findByName(this.nameRepresent, this.route.snapshot.paramMap.get('id'))
+      .subscribe(
+        (data) => {
+          this.allRepresentatives = data;
+          console.log(data)
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  getRepresentives(id: any): void {
+    this.representativeService.get(id).subscribe(
+      (data) => {
+        this.allRepresentatives = data;
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
 
 }

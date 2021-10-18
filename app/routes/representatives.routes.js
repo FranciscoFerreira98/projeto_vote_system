@@ -5,8 +5,10 @@ const upload = require("../middleware/upload");
 
 let routes = (app) => {
   router.post("/upload", upload.single("file"), representativesController.upload);
-  router.get("/representatives", representativesController.getRepresentatives);
+  router.get("/", representativesController.getRepresentatives);
+  router.get("/name/", representativesController.getRepresentativeByName);
   router.get("/:id", representativesController.getRepresentativeById);
+  router.delete("/:id", representativesController.deleteRepresentative);
   app.use("/api/representatives", router);
 };
 

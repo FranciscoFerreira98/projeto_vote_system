@@ -27,7 +27,15 @@ export class FileUploadRepresentativeService {
     return this.http.get(`${this.baseUrl}/api/representatives/voters`);
   }
   
+  findByName(name: any,pollId:any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/representatives/name/?name=${name}&pollId=${pollId}`);
+  }
+
   get(id: any): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/representatives/${id}`);
+  }
+
+  delete(id: any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/api/representatives/${id}`);
   }
 }

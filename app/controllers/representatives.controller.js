@@ -1,6 +1,6 @@
 const db = require("../models");
 const Representative = db.poll_answer;
-
+const { Op } = require("sequelize");
 const readXlsxFile = require("read-excel-file/node");
 var md5 = require('md5');
 const { DateTime } = require("mssql");
@@ -83,13 +83,63 @@ const getRepresentativeById = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Voters with id=" + id
+        message: "Error retrieving Representatives with id=" + id
       });
     });
 };
+
+const getRepresentativeByName = (req, res) => {
+  const name = req.query.name;
+  const pollid = req.query.pollId;
+  var condition = name ? 
+  {
+    pollId: pollid, 
+    name: { [Op.like]: `%${name}%` }
+  } : 
+  {
+    pollId: pollid, 
+  };
+
+  Representative.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+const deleteRepresentative = (req, res) => {
+  const id = req.params.id;
+  Representative.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Representative was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Representative with id=${id}. Maybe Representative was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Representative with id=" + id
+      });
+    });
+};
+
 
 module.exports = {
   upload,
   getRepresentatives,
   getRepresentativeById,
+  getRepresentativeByName,
+  deleteRepresentative
 };

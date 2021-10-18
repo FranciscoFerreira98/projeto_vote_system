@@ -26,7 +26,7 @@
                   <div class="form-check form-check-custom form-check-solid">
                     <!--  <input data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end" class="form-check-input"
                       type="checkbox" (ngModel)="checkBox.getCheckedVote" value="{{repre.id}}" id="flexCheckDefault" name="{{repre.name}}" /> -->
-                    <input class="form-check-input" (change)="checkCheckBoxvalue($event)"  [id]="repre.id" type="checkbox" name="{{repre.num_student}}"
+                    <input class="form-check-input" (change)="isAllSelected(repre)"  [checked]="repre.isSelected"   [id]="repre.id" type="checkbox" name="{{repre.num_student}}"
                       value="{{repre.id}}">
                       
                     
@@ -38,7 +38,7 @@
           </table>
           <button class="btn btn-primary width100" [swal]="{  html: 'Deseja confirmar o voto?' ,  buttonsStyling: false, title: 'Confirmar o voto', icon: 'warning', showCancelButton: true, denyButtonText: 'Cancelar',  customClass: {
               confirmButton: 'btn btn-primary',
-              cancelButton: 'btn btn-danger'
+              cancelButton: 'btn btn-light-danger'
           }}" (confirm)="onSubmit()">
 
 

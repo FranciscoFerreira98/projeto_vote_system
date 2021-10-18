@@ -9,6 +9,7 @@ let routes = (app) => {
   router.put("/:id", excelController.updateVoter);
   router.get("/", excelController.getVotersByName);
   router.get("/md5/:md5", excelController.getVotersByMd5);
+  router.delete("/:id", excelController.deleteVoter);
   app.use("/api/excel", router);
 };
 

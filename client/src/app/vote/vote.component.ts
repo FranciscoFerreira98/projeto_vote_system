@@ -107,18 +107,34 @@ export class VoteComponent implements OnInit {
   }
 
   checkCheckBoxvalue(event){
-    console.log(event.checked)
+  
   }
   
+  isAllSelected(item) {
+    this.allRepresentatives.forEach(val => {
+    
+      if (val.id == item.id){ 
+        val.isSelected = !val.isSelected;
+        this.radioValue = val.id;
+        if(val.isSelected == false){
+          this.radioValue = null;
+        }
+      }   
+      else {
+        val.isSelected = false;
+      }
+    });
+  }
+
   onSubmit() {
+    
     const data = {
       pollId: this.currentVoter[0].pollId,
-      pollQuestionId: '1',
+      pollQuestionId: '2',
       pollAnswerId: this.radioValue,
     };
-
     console.log(data);
-    /*
+    
     this.voteService.create(data).subscribe(
       (response) => {
         this.updateVoter();
@@ -128,6 +144,7 @@ export class VoteComponent implements OnInit {
       (error) => {
         console.log(error);
       }
-    );*/
+    );
+    
   }
 }

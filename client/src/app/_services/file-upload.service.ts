@@ -43,5 +43,7 @@ export class FileUploadService {
     return this.http.get(`${this.baseUrl}/api/excel/md5/${id}`);
   }
 
-  
+  delete(id: any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/api/excel/${id}`);
+  }
 }
