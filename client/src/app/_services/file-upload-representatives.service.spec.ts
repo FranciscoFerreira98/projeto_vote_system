@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FileUploadRepresentativesService } from './file-upload-representatives.service';
+import { FileUploadRepresentativeService } from './file-upload-representatives.service';
 
 describe('FileUploadRepresentativesService', () => {
-  let service: FileUploadRepresentativesService;
+  let service: FileUploadRepresentativeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FileUploadRepresentativesService);
+    service = TestBed.inject(FileUploadRepresentativeService);
   });
 
   it('should be created', () => {

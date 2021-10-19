@@ -5,6 +5,7 @@ import { FileUploadService } from 'src/app/_services/file-upload.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileUploadRepresentativeService } from '../_services/file-upload-representatives.service';
+import { CountVotesService } from '../_services/count-votes.service';
 
 @Component({
   selector: 'app-edit-poll',
@@ -25,6 +26,9 @@ export class EditPollComponent implements OnInit {
   isFinished = false;
   isUpdated = false;
 
+  vote: any;
+  numberOfVotes: any;
+
   p: number = 1;
   p1: number = 1;
 
@@ -33,11 +37,16 @@ export class EditPollComponent implements OnInit {
     private votersService: FileUploadService,
     private tokenStorageService: TokenStorageService,
     private representativeService: FileUploadRepresentativeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private countVotes: CountVotesService
   ) {}
 
   ngOnInit(): void {
     this.getPoll(this.route.snapshot.paramMap.get('id'));
+    this.getVotes(this.route.snapshot.paramMap.get('id'));
+    this.getNumberOfVotes(this.route.snapshot.paramMap.get('id'));
+
+
     this.retrievePolls();
     this.getAllRepresents();
   }
@@ -70,7 +79,8 @@ export class EditPollComponent implements OnInit {
     this.pollService.get(id).subscribe(
       (data) => {
         this.currentPoll = data;
-        console.log(this.currentPoll);
+
+
         this.startDate = Date.parse(this.currentPoll.start_date);
         this.endDate = Date.parse(this.currentPoll.end_date);
 
@@ -79,7 +89,7 @@ export class EditPollComponent implements OnInit {
         } else {
           this.isFinished = false;
         }
-       
+
         if (
           this.today.getTime() >= this.startDate &&
           this.today.getTime() <= this.endDate
@@ -99,6 +109,32 @@ export class EditPollComponent implements OnInit {
     this.votersService.get(id).subscribe(
       (data) => {
         this.voters = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getVotes(id: any): void {
+    this.countVotes.getAll(id).subscribe(
+      (data) => {
+        this.vote = data;
+        console.log(data);
+
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getNumberOfVotes(id: any): void {
+    this.countVotes.getNumberOfVotes(id).subscribe(
+      (data) => {
+        this.numberOfVotes = data;
+        console.log(data);
+
       },
       (error) => {
         console.log(error);
@@ -164,7 +200,6 @@ export class EditPollComponent implements OnInit {
       .subscribe(
         (data) => {
           this.allRepresentatives = data;
-          console.log(data);
         },
         (error) => {
           console.log(error);
@@ -176,7 +211,6 @@ export class EditPollComponent implements OnInit {
     this.representativeService.get(id).subscribe(
       (data) => {
         this.allRepresentatives = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);
