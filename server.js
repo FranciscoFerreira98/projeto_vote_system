@@ -41,7 +41,7 @@ require('./app/routes/voter.routes')(app);
 require('./app/routes/poll.routes')(app);
 require('./app/routes/representatives.routes')(app);
 require('./app/routes/vote.routes')(app);
-
+require('./app/routes/countVotes.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
