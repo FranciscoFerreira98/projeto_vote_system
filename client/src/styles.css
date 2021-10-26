@@ -1,4 +1,3 @@
-
 body.dark-mode {
   background-color: #0d1117;
   color: #ffffff;
@@ -12,6 +11,7 @@ body.light-mode {
 .text-dark.light-mode {
   color: #181c32 !important;
 }
+
 .text-dark.dark-mode {
   color: #ffffff !important;
 }
@@ -30,7 +30,7 @@ body:not(.dark-mode-preloading) {
 }
 
 
-.imgCreate{
+.imgCreate {
   width: 30%;
 }
 
@@ -56,13 +56,14 @@ body:not(.dark-mode-preloading) {
   margin-left: 18px;
 }
 
-.paddingTopContent{
+.paddingTopContent {
   padding-top: 30px;
 }
 
-.width100{
+.width100 {
   width: 100%;
 }
+
 footer {
   clear: both;
   position: relative;
@@ -79,7 +80,7 @@ footer {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  border-radius: .65rem !important; 
+  border-radius: .65rem !important;
   height: 2.5rem !important;
   min-width: 2.5rem !important;
   font-weight: 500 !important;
@@ -92,7 +93,7 @@ footer {
   color: #fff;
   background-color: #20d489;
   border-color: transparent;
-  border-radius: .65rem !important; 
+  border-radius: .65rem !important;
 }
 
 .ngx-pagination .current:hover {
@@ -100,7 +101,7 @@ footer {
   color: #fff !important;
   background-color: #20d489 !important;
   border-color: transparent;
-  border-radius: .65rem !important; 
+  border-radius: .65rem !important;
 }
 
 .ngx-pagination .current {
@@ -108,5 +109,9 @@ footer {
   color: #fff !important;
   background-color: #20d489 !important;
   border-color: transparent !important;
-  border-radius: .65rem !important; 
+  border-radius: .65rem !important;
+}
+
+.marginLeftEdit {
+  margin-left: 8px !important;
 }

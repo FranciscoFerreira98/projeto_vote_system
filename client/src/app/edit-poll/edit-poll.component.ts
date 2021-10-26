@@ -6,6 +6,8 @@ import { TokenStorageService } from '../_services/token-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileUploadRepresentativeService } from '../_services/file-upload-representatives.service';
 import { CountVotesService } from '../_services/count-votes.service';
+import { EmailService } from '../_services/email.service';
+
 
 @Component({
   selector: 'app-edit-poll',
@@ -38,7 +40,8 @@ export class EditPollComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private representativeService: FileUploadRepresentativeService,
     private route: ActivatedRoute,
-    private countVotes: CountVotesService
+    private countVotes: CountVotesService,
+    private email : EmailService
   ) {}
 
   ngOnInit(): void {
@@ -216,5 +219,28 @@ export class EditPollComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  sendEmail(){
+
+    for (let i = 0; i < this.voters.length; i++) {
+      const data = {
+        to : this.voters[i].email,
+        name : this.voters[i].name,
+        md5 : this.voters[i].md5,
+        title : this.currentPoll.name
+      }
+
+      console.log(data);
+      
+      this.email.send(data).subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 }

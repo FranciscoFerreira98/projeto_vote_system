@@ -24,7 +24,10 @@
           <div class="card-header">
             <h3 class="card-title">{{currentPoll.name}}</h3>
             <div class="card-toolbar">
-              <button type="button" (click)="deletePoll()" class="btn btn-light-danger">
+              <button type="button" (click)="sendEmail()" class="btn btn-light-primary">
+                Enviar emails
+              </button>
+              <button type="button" (click)="deletePoll()" class="btn btn-light-danger marginLeftEdit">
                 Apagar
               </button>
             </div>
