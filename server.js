@@ -2,9 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+
 const app = express();
 
-global.__basedir = __dirname + "/..";
+global.__basedir = __dirname ;
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -42,6 +43,7 @@ require('./app/routes/poll.routes')(app);
 require('./app/routes/representatives.routes')(app);
 require('./app/routes/vote.routes')(app);
 require('./app/routes/countVotes.routes')(app);
+require('./app/routes/nodemailer.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
