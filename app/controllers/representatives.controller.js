@@ -7,6 +7,36 @@ const { DateTime } = require("mssql");
 
 
 
+const create = (req, res) => {
+  // Validate request
+  if (!req.body.name) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  // Create a Poll
+  const represent = {
+    name: req.body.name,
+    pollId: req.body.pollId,
+    num_student: req.body.num_student,
+    pollQuestionId: req.body.pollQuestionId
+  };
+
+  // Save Poll in the database
+  Representative.create(represent)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the represent."
+      });
+    });
+};
+
 const upload = async (req, res) => {
   try {
     if (req.file == undefined) {
@@ -141,5 +171,6 @@ module.exports = {
   getRepresentatives,
   getRepresentativeById,
   getRepresentativeByName,
-  deleteRepresentative
+  deleteRepresentative,
+  create
 };

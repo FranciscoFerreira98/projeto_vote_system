@@ -10,9 +10,9 @@ exports.findAll = (req, res) => {
   
     pollAnswer.findAll({ where :{pollId : id}, include: pollVote })
       .then(data => {
-       
         res.send(data);
-        console.log(data.poll_votes[0].length + " -- \n");
+       
+        
       })
       .catch(err => {
         res.status(500).send({

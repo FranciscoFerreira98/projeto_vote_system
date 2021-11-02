@@ -1,7 +1,7 @@
 module.exports = {
-  HOST: "ipcavote.database.windows.net",
-  USER: "ipcavote",
-  PASSWORD: "0a1b2c3d4e5f_",
+  HOST: "localhost",
+  USER: "sa",
+  PASSWORD: "0a1b2c3d4e5f",
   DB: "ipcavote",
   dialect: "mssql",
   pool: {

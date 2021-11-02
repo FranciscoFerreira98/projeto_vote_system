@@ -7,7 +7,38 @@ const {
   DateTime
 } = require("mssql");
 
+const create = (req, res) => {
+  // Validate request
+  if (!req.body.name) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
 
+  // Create a Poll
+  const voter = {
+    name: req.body.name,
+    email: req.body.email,
+    md5: md5(Math.random()),
+    num_student : req.body.num_student,
+    pollId : req.body.pollId,
+    voted : false
+  };
+
+  console.log(voter);
+  // Save Poll in the database
+  Voter.create(voter)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the voter."
+      });
+    });
+};
 
 const upload = async (req, res) => {
   try {
@@ -188,5 +219,6 @@ module.exports = {
   getVotersByName,
   getVotersByMd5,
   deleteVoter,
-  updateVoter
+  updateVoter,
+  create
 };
