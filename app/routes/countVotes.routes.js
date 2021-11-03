@@ -6,5 +6,6 @@ module.exports = app => {
     // Retrieve all Votes from a id
     router.get("/:id", countVotes.findAll);
     router.get("/all/:id", countVotes.findAndCountAll);
+    router.get("/allVoters/:id", countVotes.allVoters)
     app.use('/api/count', router);
 }
