@@ -23,6 +23,7 @@ exports.sendEmail = (req, res) => {
         title: req.body.title,
         name: req.body.name,
         md5: req.body.md5,
+        pollId: req.body.pollId
     };
 
     const mailData = {
@@ -68,7 +69,7 @@ exports.sendEmail = (req, res) => {
                                                 style="padding-left:20px;padding-right:20px;padding-top:29.8px;font-size:22px;color:#000000;letter-spacing:0;line-height:37px;font-family: 'Poppins', sans-serif;">
                                                 <p>
                                                     <span style="display:block" dir="ltr">Olá, ${data.name},<br><br>Podes votar
-                                                        clicando no botão em baixo
+                                                        clicando no botão em baixo e poderás ver o resultado <a href="http://localhost:8081/result/${data.pollId}">aqui!</a>
                                                     </span>
                                                 </p>
                                             </td>
@@ -78,7 +79,7 @@ exports.sendEmail = (req, res) => {
                                             <td align="center" style="font-family: 'Poppins', sans-serif;">
                                                 <br>
                                                 <br>
-                                                <a href="https://localhost:8081/vote/${data.md5}" style="box-sizing:border-box;display:inline-block;font-family:'Poppins',sans-serif;text-decoration:none;text-align:center;color:#ffffff;background-color:#20d489;border-radius:10px;width:auto;max-width:100%;word-break:break-word;word-wrap:break-word;border-top-color:#b93cc0;border-top-style:solid;border-top-width:0px;border-left-color:#b93cc0;border-left-style:solid;border-left-width:0px;border-right-color:#b93cc0;border-right-style:solid;border-right-width:0px;border-bottom-color:#b93cc0;border-bottom-style:solid;border-bottom-width:0px" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://localhost:8081/vote/${data.md5}&amp;source=gmail&amp;ust=1635334522539000&amp;usg=AFQjCNEuXSHyT9m5W-hMup6Xwn9FGhmZBg">
+                                                <a href="http://localhost:8081/vote/${data.md5}" style="box-sizing:border-box;display:inline-block;font-family:'Poppins',sans-serif;text-decoration:none;text-align:center;color:#ffffff;background-color:#20d489;border-radius:10px;width:auto;max-width:100%;word-break:break-word;word-wrap:break-word;border-top-color:#b93cc0;border-top-style:solid;border-top-width:0px;border-left-color:#b93cc0;border-left-style:solid;border-left-width:0px;border-right-color:#b93cc0;border-right-style:solid;border-right-width:0px;border-bottom-color:#b93cc0;border-bottom-style:solid;border-bottom-width:0px" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://localhost:8081/vote/${data.md5}&amp;source=gmail&amp;ust=1635334522539000&amp;usg=AFQjCNEuXSHyT9m5W-hMup6Xwn9FGhmZBg">
                                                     <span style="display:block;padding:15px 25px;line-height:120%"><strong><span style="font-size:24px;line-height:28.8px">VOTA AGORA</span></strong><br></span>
                                                   </a>
                                                   
