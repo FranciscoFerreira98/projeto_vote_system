@@ -72,3 +72,17 @@ exports.allVoters = (req, res) => {
       });
     });
 };
+
+exports.allVotersOfAllTime = (req, res) => {
+  voter.findAndCountAll()
+    .then(data => {
+      res.send({ allVoters: data.count });
+
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving votes."
+      });
+    });
+};
