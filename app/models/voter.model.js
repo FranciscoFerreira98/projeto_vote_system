@@ -7,7 +7,8 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     md5: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      unique: true
     },
     num_student: {
       type: Sequelize.STRING

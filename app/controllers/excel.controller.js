@@ -1,6 +1,8 @@
 const db = require("../models");
 const Voter = db.voter;
-const { Op } = require("sequelize");
+const {
+  Op
+} = require("sequelize");
 const readXlsxFile = require("read-excel-file/node");
 var md5 = require('md5');
 const {
@@ -21,9 +23,9 @@ const create = (req, res) => {
     name: req.body.name,
     email: req.body.email,
     md5: md5(Math.random()),
-    num_student : req.body.num_student,
-    pollId : req.body.pollId,
-    voted : false
+    num_student: req.body.num_student,
+    pollId: req.body.pollId,
+    voted: false
   };
 
   console.log(voter);
@@ -34,11 +36,25 @@ const create = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the voter."
+        message: err.message || "Some error occurred while creating the voter."
       });
     });
 };
+
+
+function isMd5Unique(md5) {
+  return Voter.count({
+    where: {
+      md5: md5
+    }
+  })
+    .then(count => {
+      if (count != 0) {
+        return false;
+      }
+      return true;
+    });
+}
 
 const upload = async (req, res) => {
   try {
@@ -55,8 +71,9 @@ const upload = async (req, res) => {
 
       let voters = [];
 
+
       rows.forEach((row) => {
-        let voter = {
+        var voter = {
           name: row[0],
           email: row[1],
           md5: md5(Math.random()),
@@ -64,10 +81,9 @@ const upload = async (req, res) => {
           pollId: req.body.pollId,
           voted: false,
         };
-        console.log(voter.name)
+    
         voters.push(voter);
       });
-
 
       Voter.bulkCreate(voters)
         .then(() => {
@@ -107,10 +123,10 @@ const getVotersById = (req, res) => {
   const id = req.params.id;
 
   Voter.findAll({
-      where: {
-        pollId: id
-      }
-    })
+    where: {
+      pollId: id
+    }
+  })
     .then(data => {
       res.send(data);
     })
@@ -124,12 +140,12 @@ const getVotersById = (req, res) => {
 const getVotersByMd5 = (req, res) => {
   const id = req.params.md5;
 
-console.log(id);
+  console.log(id);
   Voter.findAll({
-      where: {
-        md5: id
-      }
-    })
+    where: {
+      md5: id
+    }
+  })
     .then(data => {
       res.send(data);
     })
@@ -143,23 +159,24 @@ console.log(id);
 const getVotersByName = (req, res) => {
   const name = req.query.name;
   const pollid = req.query.pollId;
-  var condition = name ? 
-  {
-    pollId: pollid, 
-    name: { [Op.like]: `%${name}%` }
-  } : 
-  {
-    pollId: pollid, 
+  var condition = name ? {
+    pollId: pollid,
+    name: {
+      [Op.like]: `%${name}%`
+    }
+  } : {
+    pollId: pollid,
   };
 
-  Voter.findAll({ where: condition })
+  Voter.findAll({
+    where: condition
+  })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials."
+        message: err.message || "Some error occurred while retrieving tutorials."
       });
     });
 };
@@ -168,7 +185,9 @@ const updateVoter = (req, res) => {
   const id = req.params.id;
 
   Voter.update(req.body, {
-    where: { id: id }
+    where: {
+      id: id
+    }
   })
     .then(num => {
       if (num == 1) {
@@ -191,7 +210,9 @@ const updateVoter = (req, res) => {
 const deleteVoter = (req, res) => {
   const id = req.params.id;
   Voter.destroy({
-    where: { id: id }
+    where: {
+      id: id
+    }
   })
     .then(num => {
       if (num == 1) {
