@@ -30,15 +30,15 @@ const create = (req, res) => {
   isMd5Unique(voter.md5).then((meta) => {
     voter.md5 = meta;
     Voter.create(voter)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while creating the voter."
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: err.message || "Some error occurred while creating the voter."
+        });
       });
-    });
-    
+
   });
 
 
@@ -46,9 +46,8 @@ const create = (req, res) => {
   /**/
 };
 
-function isMd5Unique(md5s) {
-
-  return Voter.count({ where: { md5: md5s } })
+function isMd5Uniques(md5s) {
+  return new Voter.count({ where: { md5: md5s } })
     .then(count => {
       if (count != 0) {
         md5s = md5(Math.random()) + md5(Math.random())
@@ -58,7 +57,10 @@ function isMd5Unique(md5s) {
     });
 
 }
-
+const isMd5Unique = md5s =>
+  Voter.findOne({ where: { md5: md5s } })
+    .then(token => token !== null)
+    .then(isUnique => isUnique);
 
 
 const upload = async (req, res) => {
@@ -75,8 +77,6 @@ const upload = async (req, res) => {
       rows.shift();
 
       var voters = [];
-
-
       rows.forEach((row) => {
         var voter = {
           name: row[0],
@@ -86,27 +86,37 @@ const upload = async (req, res) => {
           pollId: req.body.pollId,
           voted: false,
         };
+        //console.log("\x1b[31m Old Md5: %s\x1b[0m",voter.md5 );
+        /*console.log(isMd5Unique(voter.md5))
 
-        //voter.md5 = isMd5Unique(voter.md5);
-        isMd5Unique(voter.md5).then((meta) => {
-          voter.md5 = meta;
-          voters.push(voter);
-          Voter.bulkCreate(voters)
-            .then(() => {
-              res.status(200).send({
-                message: "Uploaded the file successfully: " + req.file.originalname,
-              });
-            })
-            .catch((error) => {
-              res.status(500).send({
-                message: "Fail to import data into database!",
-                error: error.message,
-              });
-            });
+        isMd5Unique(voter.md5).then(isUnique => {
+          console.log(isUnique);
+        });*/
+        isMd5Unique(voter.md5, function(isUnique) {
+          console.log(isUnique);
+          if (isUnique) {
+           
+          }
         });
-      })
-    });
 
+        voters.push(voter);
+      });
+
+
+
+      Voter.bulkCreate(voters)
+        .then(() => {
+          res.status(200).send({
+            message: "Uploaded the file successfully: " + req.file.originalname,
+          });
+        })
+        .catch((error) => {
+          res.status(500).send({
+            message: "Fail to import data into database!",
+            error: error.message,
+          });
+        });
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send({
