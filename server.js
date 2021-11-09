@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const app = express();
 
-global.__basedir = __dirname ;
+global.__basedir = __dirname + "/..";
 
 var corsOptions = {
   origin: "http://localhost:8081"

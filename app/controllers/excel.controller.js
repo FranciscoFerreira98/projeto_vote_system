@@ -22,15 +22,14 @@ const create = (req, res) => {
   const voter = {
     name: req.body.name,
     email: req.body.email,
-    md5: md5(Math.random()),
+    md5: md5(Math.random()) + md5(Math.random),
     num_student: req.body.num_student,
     pollId: req.body.pollId,
     voted: false
   };
-
-  console.log(voter);
-  // Save Poll in the database
-  Voter.create(voter)
+  isMd5Unique(voter.md5).then((meta) => {
+    voter.md5 = meta;
+    Voter.create(voter)
     .then(data => {
       res.send(data);
     })
@@ -39,22 +38,28 @@ const create = (req, res) => {
         message: err.message || "Some error occurred while creating the voter."
       });
     });
+    
+  });
+
+
+  // Save Poll in the database
+  /**/
 };
 
+function isMd5Unique(md5s) {
 
-function isMd5Unique(md5) {
-  return Voter.count({
-    where: {
-      md5: md5
-    }
-  })
+  return Voter.count({ where: { md5: md5s } })
     .then(count => {
       if (count != 0) {
-        return false;
+        md5s = md5(Math.random()) + md5(Math.random())
+        isMd5Unique(md5s);
       }
-      return true;
+      return md5s;
     });
+
 }
+
+
 
 const upload = async (req, res) => {
   try {
@@ -69,35 +74,39 @@ const upload = async (req, res) => {
       // skip header
       rows.shift();
 
-      let voters = [];
+      var voters = [];
 
 
       rows.forEach((row) => {
         var voter = {
           name: row[0],
           email: row[1],
-          md5: md5(Math.random()),
+          md5: md5(Math.random()) + md5(Math.random()),
           num_student: row[2],
           pollId: req.body.pollId,
           voted: false,
         };
-    
-        voters.push(voter);
-      });
 
-      Voter.bulkCreate(voters)
-        .then(() => {
-          res.status(200).send({
-            message: "Uploaded the file successfully: " + req.file.originalname,
-          });
-        })
-        .catch((error) => {
-          res.status(500).send({
-            message: "Fail to import data into database!",
-            error: error.message,
-          });
+        //voter.md5 = isMd5Unique(voter.md5);
+        isMd5Unique(voter.md5).then((meta) => {
+          voter.md5 = meta;
+          voters.push(voter);
+          Voter.bulkCreate(voters)
+            .then(() => {
+              res.status(200).send({
+                message: "Uploaded the file successfully: " + req.file.originalname,
+              });
+            })
+            .catch((error) => {
+              res.status(500).send({
+                message: "Fail to import data into database!",
+                error: error.message,
+              });
+            });
         });
+      })
     });
+
   } catch (error) {
     console.log(error);
     res.status(500).send({
