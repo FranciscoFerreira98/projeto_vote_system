@@ -32,6 +32,7 @@ db.poll = require("../models/poll.model.js")(sequelize, Sequelize);
 db.poll_answer = require("../models/poll_answer.model.js")(sequelize, Sequelize);
 db.poll_question = require("../models/poll_question.model.js")(sequelize, Sequelize);
 db.poll_vote = require("../models/poll_vote.model.js")(sequelize, Sequelize);
+db.schedule = require("../models/schedule.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",

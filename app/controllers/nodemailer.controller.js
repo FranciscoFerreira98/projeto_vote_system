@@ -10,6 +10,9 @@ const transporter = nodemailer.createTransport({
 });
 
 
+
+  
+
 exports.sendEmail = (req, res) => {
     // Validate request
     if (!req.body.title) {

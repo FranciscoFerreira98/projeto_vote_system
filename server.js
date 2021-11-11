@@ -45,12 +45,14 @@ require('./app/routes/representatives.routes')(app);
 require('./app/routes/vote.routes')(app);
 require('./app/routes/countVotes.routes')(app);
 require('./app/routes/nodemailer.routes')(app);
+//require('./app/routes/schedule.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
 
 function initial() {
   Role.create({
