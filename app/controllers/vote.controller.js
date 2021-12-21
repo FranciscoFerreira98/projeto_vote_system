@@ -1,6 +1,7 @@
 const db = require("../models");
 const pollVote = db.poll_vote;
 const Op = db.Sequelize.Op;
+const Question = db.poll_question;
 
 
 exports.create = (req, res) => {
@@ -30,3 +31,22 @@ exports.create = (req, res) => {
         });
       });
   };
+
+  exports.findQuestionByPollId = (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+  
+    Question.findAll({
+      where: {
+        pollId: id
+      }
+    })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving question with id=" + id
+        });
+      });
+  }

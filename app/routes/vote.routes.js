@@ -4,6 +4,7 @@ module.exports = app => {
   
     // Create a new Poll
     router.post("/", votes.create);
-
+    router.get("/:id", votes.findQuestionByPollId);
+    
     app.use('/api/vote', router);
   };

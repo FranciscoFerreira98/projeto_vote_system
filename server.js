@@ -11,7 +11,6 @@ global.__basedir = __dirname + "/..";
 
 var corsOptions = {
   origin: "http://localhost:8081",
-  origin: "http://192.168.1.73:8081"
 };
 
 app.use(cors(corsOptions));
