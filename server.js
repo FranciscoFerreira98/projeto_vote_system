@@ -1,14 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
-
 const app = express();
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 
 global.__basedir = __dirname + "/..";
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8081",
+  origin: "http://192.168.1.73:8081"
 };
 
 app.use(cors(corsOptions));
@@ -18,6 +21,10 @@ app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 // database
 const db = require("./app/models");

@@ -72,7 +72,7 @@ exports.sendEmail = (req, res) => {
                                                 style="padding-left:20px;padding-right:20px;padding-top:29.8px;font-size:22px;color:#000000;letter-spacing:0;line-height:37px;font-family: 'Poppins', sans-serif;">
                                                 <p>
                                                     <span style="display:block" dir="ltr">Olá, ${data.name},<br><br>Podes votar
-                                                        clicando no botão em baixo e poderás ver o resultado <a href="http://localhost:8081/result/${data.pollId}">aqui!</a>
+                                                        ao pressionar no botão a baixo, poderás obeservar o resultado <a href="http://localhost:8081/result/${data.pollId}">aqui!</a>
                                                     </span>
                                                 </p>
                                             </td>

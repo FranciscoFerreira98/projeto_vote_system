@@ -22,4 +22,9 @@ module.exports = app => {
     router.delete("/", polls.deleteAll);
   
     app.use('/api/polls', router);
+    app.use(function(req, res, next) {
+      res.header('Access-Control-Expose-Headers', 'x-access-token');
+      next();
+    });
+    
   };
