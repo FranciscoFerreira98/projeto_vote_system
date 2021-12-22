@@ -29,8 +29,8 @@ exports.signup = (req, res) => {
           });
         });
       } else {
-        // user role = 1
-        user.setRoles([1]).then(() => {
+        // user role = 1 / mesa role = 2
+        user.setRoles([2]).then(() => {
           res.send({ message: "User registered successfully!" });
         });
       }
