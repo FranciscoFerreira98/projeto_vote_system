@@ -4,8 +4,8 @@ const transporter = nodemailer.createTransport({
     port: 465,
     host: "smtp.sapo.pt",
     auth: {
-        user: 'votesystemipca@sapo.pt',
-        pass: 'votesystemipca1'
+        user: 'xxxxx',
+        pass: 'xxxxx'
     },
 });
 
